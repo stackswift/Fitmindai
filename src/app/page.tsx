@@ -61,7 +61,7 @@ export default function Home() {
       {/* Background Elements */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-400/20 via-transparent to-transparent pointer-events-none" />
       <div className="fixed inset-0 bg-grid-pattern opacity-5 pointer-events-none" />
-      
+
       <Header />
 
       <main className="container mx-auto px-4 py-8 relative">
@@ -71,7 +71,7 @@ export default function Home() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
@@ -89,7 +89,7 @@ export default function Home() {
               Your AI-powered personal fitness coach
             </p>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Get customized workout and diet plans tailored specifically for your goals, 
+              Get customized workout and diet plans tailored specifically for your goals,
               fitness level, and lifestyle preferences.
             </p>
           </motion.div>
@@ -110,37 +110,37 @@ export default function Home() {
             </h2>
             <div className="glass-card p-8 rounded-2xl mb-8">
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                FitMind AI is your personal fitness companion powered by advanced artificial intelligence. 
-                We combine cutting-edge technology with fitness expertise to create personalized workout 
+                FitMind AI is your personal fitness companion powered by advanced artificial intelligence.
+                We combine cutting-edge technology with fitness expertise to create personalized workout
                 and nutrition plans that adapt to your unique goals, preferences, and lifestyle.
               </p>
               <div className="grid md:grid-cols-2 gap-8 text-left">
                 <div>
                   <h3 className="text-xl font-bold text-gradient mb-3">Our Mission</h3>
                   <p className="text-gray-600 dark:text-gray-300">
-                    To make professional fitness coaching accessible to everyone through AI technology, 
+                    To make professional fitness coaching accessible to everyone through AI technology,
                     helping you achieve your health and fitness goals with personalized guidance.
                   </p>
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-gradient mb-3">Technology</h3>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Built with Next.js, powered by OpenAI and Google Gemini, featuring voice synthesis, 
+                    Built with Next.js, powered by OpenAI and Google Gemini, featuring voice synthesis,
                     AI image generation, and modern responsive design.
                   </p>
                 </div>
               </div>
             </div>
-            
+
             {/* Navigation to other sections */}
             <div className="flex flex-wrap gap-4 justify-center">
-              <button 
+              <button
                 onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
                 className="glass-card px-6 py-3 rounded-xl font-medium hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-200 transform hover:scale-105"
               >
                 🧠 Explore Features
               </button>
-              <button 
+              <button
                 onClick={() => document.getElementById('plans')?.scrollIntoView({ behavior: 'smooth' })}
                 className="glass-card px-6 py-3 rounded-xl font-medium hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-200 transform hover:scale-105"
               >
@@ -165,7 +165,7 @@ export default function Home() {
               Experience cutting-edge AI technology designed to transform your fitness journey
             </p>
           </motion.div>
-          
+
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-8">
             {[
               {
@@ -197,9 +197,9 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-          
+
           <div className="text-center">
-            <button 
+            <button
               onClick={() => document.getElementById('plans')?.scrollIntoView({ behavior: 'smooth' })}
               className="gradient-primary text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200"
             >

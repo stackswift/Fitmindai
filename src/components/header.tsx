@@ -69,19 +69,19 @@ export function Header() {
 
         <div className="flex items-center space-x-4">
           <div className="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-600 dark:text-gray-300">
-            <button 
+            <button
               onClick={() => handleNavClick('about')}
               className="hover:text-purple-600 cursor-pointer transition-colors hover:scale-105 transform duration-200"
             >
               About
             </button>
-            <button 
+            <button
               onClick={() => handleNavClick('features')}
               className="hover:text-purple-600 cursor-pointer transition-colors hover:scale-105 transform duration-200"
             >
               Features
             </button>
-            <button 
+            <button
               onClick={() => handleNavClick('plans')}
               className="hover:text-purple-600 cursor-pointer transition-colors hover:scale-105 transform duration-200"
             >

@@ -345,7 +345,7 @@ function generateDietDays(userData: UserData) {
 
   const dietType = userData.dietaryPreference as keyof typeof mealOptions
   const meals = mealOptions[dietType] || mealOptions['non-vegetarian']
-  
+
   const snackOptions = [
     { name: 'Greek Yogurt', ingredients: ['Greek yogurt', 'Honey'], preparation: 'Mix yogurt with honey', calories: 120, protein: 15, carbs: 12, fats: 2, cookingTime: '2 minutes' },
     { name: 'Mixed Nuts', ingredients: ['Almonds', 'Walnuts'], preparation: 'Ready to eat', calories: 160, protein: 6, carbs: 6, fats: 14, cookingTime: '0 minutes' },
@@ -359,7 +359,7 @@ function generateDietDays(userData: UserData) {
     const lunch = meals.lunches[i % meals.lunches.length]
     const dinner = meals.dinners[i % meals.dinners.length]
     const daySnacks = [snackOptions[i % snackOptions.length], snackOptions[(i + 1) % snackOptions.length]]
-    
+
     return {
       day,
       breakfast,

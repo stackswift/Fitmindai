@@ -221,8 +221,8 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
               </div>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={onBackToForm}
                 className="glass-card hover:bg-gray-100 dark:hover:bg-gray-800"
               >
@@ -231,8 +231,8 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
                 </svg>
                 New Plan
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={handleExportPDF}
                 className="glass-card hover:bg-green-50 dark:hover:bg-green-900/20"
               >
@@ -262,11 +262,10 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
             key={tab.key}
             variant={activeTab === tab.key ? 'default' : 'ghost'}
             onClick={() => setActiveTab(tab.key as 'workout' | 'diet' | 'tips')}
-            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-              activeTab === tab.key 
-                ? 'gradient-primary text-white shadow-lg' 
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${activeTab === tab.key
+                ? 'gradient-primary text-white shadow-lg'
                 : 'hover:bg-purple-50 dark:hover:bg-purple-900/20'
-            }`}
+              }`}
           >
             <tab.icon className="h-5 w-5" />
             {tab.label}

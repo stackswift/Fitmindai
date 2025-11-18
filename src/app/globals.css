@@ -89,25 +89,25 @@ body {
   .glass-card {
     @apply bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border border-white/20 dark:border-gray-700/30;
   }
-  
+
   .gradient-primary {
     @apply bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700;
   }
-  
+
   .gradient-secondary {
     @apply bg-gradient-to-r from-pink-500 via-red-500 to-orange-500;
   }
-  
+
   .text-gradient {
     @apply bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 bg-clip-text text-transparent;
   }
-  
+
   .shadow-strong {
     @apply shadow-2xl shadow-purple-500/20 dark:shadow-purple-500/10;
   }
-  
+
   .bg-grid-pattern {
-    background-image: 
+    background-image:
       linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
       linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
