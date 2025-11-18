@@ -81,8 +81,8 @@ export default function Home() {
         {!plan ? (
           <UserForm onSubmit={handleUserSubmit} isLoading={isGenerating} />
         ) : (
-          <PlanDisplay 
-            plan={plan} 
+          <PlanDisplay
+            plan={plan}
             userData={userData!}
             onRegenerate={handleRegeneratePlan}
             onBackToForm={handleBackToForm}

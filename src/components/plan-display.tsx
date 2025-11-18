@@ -203,8 +203,8 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
                   <span>{progress.completedWorkouts}/{progress.totalWorkouts} completed</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
-                  <div 
-                    className="bg-green-500 h-2 rounded-full transition-all duration-300" 
+                  <div
+                    className="bg-green-500 h-2 rounded-full transition-all duration-300"
                     style={{ width: `${(progress.completedWorkouts / progress.totalWorkouts) * 100}%` }}
                   ></div>
                 </div>
@@ -221,8 +221,8 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
                 <Download className="mr-2 h-4 w-4" />
                 Export PDF
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={onRegenerate}
                 disabled={isRegenerating}
               >
@@ -383,7 +383,7 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
                             <h5 className="font-medium text-green-800 dark:text-green-200">Complete this workout</h5>
                             <p className="text-sm text-green-600 dark:text-green-300">Mark as completed to track your progress</p>
                           </div>
-                          <Button 
+                          <Button
                             onClick={handleMarkWorkoutComplete}
                             className="bg-green-600 hover:bg-green-700"
                           >
@@ -645,8 +645,8 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
                     <ul className="space-y-2 text-sm">
                       {plan.progress.weeklyGoals.map((goal, i) => (
                         <li key={i} className="flex items-center gap-2">
-                          <input 
-                            type="checkbox" 
+                          <input
+                            type="checkbox"
                             checked={i < progress.weeklyGoalsCompleted}
                             onChange={i < progress.weeklyGoalsCompleted ? undefined : handleMarkGoalComplete}
                             className="rounded"
@@ -675,7 +675,7 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
                     </ul>
                   </div>
                 </div>
-                
+
                 {/* Overall Progress Summary */}
                 <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
                   <h6 className="font-medium text-blue-800 dark:text-blue-200 mb-2">Your Journey</h6>
