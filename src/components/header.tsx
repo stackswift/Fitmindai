@@ -15,6 +15,37 @@ export function Header() {
     setMounted(true)
   }, [])
 
+  const handleNavClick = (section: string) => {
+    // Smooth scroll to sections or show content
+    switch (section) {
+      case 'features':
+        // Scroll to features section or show features modal
+        const featuresSection = document.getElementById('features')
+        if (featuresSection) {
+          featuresSection.scrollIntoView({ behavior: 'smooth' })
+        } else {
+          // If no features section exists, scroll to form
+          window.scrollTo({ top: 400, behavior: 'smooth' })
+        }
+        break
+      case 'plans':
+        // Scroll to plans section or trigger plan generation
+        const plansSection = document.getElementById('plans')
+        if (plansSection) {
+          plansSection.scrollIntoView({ behavior: 'smooth' })
+        } else {
+          window.scrollTo({ top: 600, behavior: 'smooth' })
+        }
+        break
+      case 'about':
+        // Scroll to footer or show about modal
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+        break
+      default:
+        break
+    }
+  }
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -34,9 +65,24 @@ export function Header() {
 
         <div className="flex items-center space-x-4">
           <div className="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-600 dark:text-gray-300">
-            <span className="hover:text-purple-600 cursor-pointer transition-colors">Features</span>
-            <span className="hover:text-purple-600 cursor-pointer transition-colors">Plans</span>
-            <span className="hover:text-purple-600 cursor-pointer transition-colors">About</span>
+            <button 
+              onClick={() => handleNavClick('features')}
+              className="hover:text-purple-600 cursor-pointer transition-colors hover:scale-105 transform duration-200"
+            >
+              Features
+            </button>
+            <button 
+              onClick={() => handleNavClick('plans')}
+              className="hover:text-purple-600 cursor-pointer transition-colors hover:scale-105 transform duration-200"
+            >
+              Plans
+            </button>
+            <button 
+              onClick={() => handleNavClick('about')}
+              className="hover:text-purple-600 cursor-pointer transition-colors hover:scale-105 transform duration-200"
+            >
+              About
+            </button>
           </div>
           {mounted && (
             <Button
