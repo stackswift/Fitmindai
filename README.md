@@ -266,6 +266,5 @@ If you encounter any issues or have questions:
 
 ---
 
-**Built with ❤️ by the FitMind AI Team**
 
 *Ready for deployment to Vercel, Netlify, or any Node.js hosting platform*
