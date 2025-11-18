@@ -1,0 +1,165 @@
+import { FitnessPlan, UserData } from '@/types'
+
+export async function generatePDF(plan: FitnessPlan, userData: UserData): Promise<Buffer> {
+  try {
+    // Import jsPDF dynamically to avoid SSR issues
+    const jsPDF = (await import('jspdf')).default
+
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    })
+
+    // Set up styling
+    const pageWidth = doc.internal.pageSize.getWidth()
+    const pageHeight = doc.internal.pageSize.getHeight()
+    const margin = 20
+    let yPosition = margin
+
+    // Helper function to add text with word wrapping
+    const addText = (text: string, size: number = 10, style: 'normal' | 'bold' = 'normal') => {
+      doc.setFontSize(size)
+      doc.setFont('helvetica', style)
+
+      const lines = doc.splitTextToSize(text, pageWidth - 2 * margin)
+
+      // Check if we need a new page
+      if (yPosition + (lines.length * size * 0.352778) > pageHeight - margin) {
+        doc.addPage()
+        yPosition = margin
+      }
+
+      doc.text(lines, margin, yPosition)
+      yPosition += lines.length * size * 0.352778 + 5
+    }
+
+    // Add title
+    addText(`${userData.name}'s Personalized Fitness Plan`, 20, 'bold')
+    addText(`Generated on ${new Date().toLocaleDateString()}`, 12)
+
+    // Add user info
+    addText('Personal Information', 16, 'bold')
+    addText(`Age: ${userData.age} | Height: ${userData.height}cm | Weight: ${userData.weight}kg`)
+    addText(`Goal: ${userData.fitnessGoal} | Level: ${userData.fitnessLevel} | Location: ${userData.workoutLocation}`)
+    addText(`Diet: ${userData.dietaryPreference} | Available Time: ${userData.availableTime || 60} minutes/day`)
+
+    yPosition += 10
+
+    // Workout Plan Section
+    addText('WORKOUT PLAN', 16, 'bold')
+    addText(plan.workoutPlan.title, 14, 'bold')
+    addText(plan.workoutPlan.description)
+    addText(`Duration: ${plan.workoutPlan.duration} | Frequency: ${plan.workoutPlan.frequency}`)
+
+    yPosition += 5
+
+    // Add each workout day
+    plan.workoutPlan.days.forEach((day, index) => {
+      if (day.exercises.length === 0) return // Skip rest days
+
+      addText(`${day.day} - ${day.focus}`, 12, 'bold')
+      addText(`Total Time: ${day.totalTime}`)
+
+      // Warmup
+      if (day.warmup.length > 0) {
+        addText('Warmup:', 10, 'bold')
+        day.warmup.forEach(item => addText(`• ${item}`, 9))
+      }
+
+      // Exercises
+      addText('Exercises:', 10, 'bold')
+      day.exercises.forEach(exercise => {
+        addText(`${exercise.name}: ${exercise.sets} sets × ${exercise.reps}, Rest: ${exercise.restTime}`, 9)
+        addText(`Instructions: ${exercise.instructions}`, 8)
+      })
+
+      // Cooldown
+      if (day.cooldown.length > 0) {
+        addText('Cooldown:', 10, 'bold')
+        day.cooldown.forEach(item => addText(`• ${item}`, 9))
+      }
+
+      yPosition += 5
+    })
+
+    // Diet Plan Section
+    if (yPosition > pageHeight - 100) {
+      doc.addPage()
+      yPosition = margin
+    }
+
+    addText('DIET PLAN', 16, 'bold')
+    addText(plan.dietPlan.title, 14, 'bold')
+    addText(plan.dietPlan.description)
+
+    yPosition += 5
+
+    // Diet Guidelines
+    addText('Guidelines:', 12, 'bold')
+    plan.dietPlan.guidelines.forEach(guideline => {
+      addText(`• ${guideline}`, 9)
+    })
+
+    yPosition += 5
+
+    // Sample meal plan (first 3 days)
+    addText('Sample Meal Plan (First 3 Days):', 12, 'bold')
+    plan.dietPlan.days.slice(0, 3).forEach(day => {
+      addText(`${day.day} (${day.totalCalories} calories)`, 11, 'bold')
+      addText(`Breakfast: ${day.breakfast.name} (${day.breakfast.calories} cal)`, 9)
+      addText(`Lunch: ${day.lunch.name} (${day.lunch.calories} cal)`, 9)
+      addText(`Dinner: ${day.dinner.name} (${day.dinner.calories} cal)`, 9)
+      addText(`Snacks: ${day.snacks.map(s => s.name).join(', ')}`, 9)
+      addText(`Water Intake: ${day.waterIntake}`, 9)
+      yPosition += 3
+    })
+
+    // Tips Section
+    if (yPosition > pageHeight - 80) {
+      doc.addPage()
+      yPosition = margin
+    }
+
+    addText('TIPS & GUIDANCE', 16, 'bold')
+
+    addText('Lifestyle Tips:', 12, 'bold')
+    plan.tips.lifestyle.slice(0, 5).forEach(tip => {
+      addText(`• ${tip}`, 9)
+    })
+
+    yPosition += 5
+
+    addText('Motivation:', 12, 'bold')
+    plan.tips.motivation.slice(0, 5).forEach(tip => {
+      addText(`• ${tip}`, 9)
+    })
+
+    // Progress Tracking
+    yPosition += 5
+    addText('PROGRESS TRACKING', 12, 'bold')
+    addText('Weekly Goals:', 10, 'bold')
+    plan.progress.weeklyGoals.forEach(goal => {
+      addText(`• ${goal}`, 9)
+    })
+
+    addText('Measurements to Track:', 10, 'bold')
+    plan.progress.measurements.forEach(measurement => {
+      addText(`• ${measurement}`, 9)
+    })
+
+    // Footer
+    const footerY = pageHeight - 15
+    doc.setFontSize(8)
+    doc.setFont('helvetica', 'normal')
+    doc.text('Generated by FitMind AI - Your Personal Fitness Coach', margin, footerY)
+
+    // Convert to buffer
+    const pdfData = doc.output('arraybuffer')
+    return Buffer.from(pdfData)
+
+  } catch (error) {
+    console.error('Error generating PDF:', error)
+    throw new Error('Failed to generate PDF')
+  }
+}
