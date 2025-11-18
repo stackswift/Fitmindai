@@ -268,4 +268,4 @@ If you encounter any issues or have questions:
 
 **Built with ❤️ by the FitMind AI Team**
 
-[Live Demo](https://fitmindai.vercel.app) | [Documentation](https://docs.fitmindai.com) | [API Reference](https://api.fitmindai.com/docs)
+*Ready for deployment to Vercel, Netlify, or any Node.js hosting platform*
