@@ -97,6 +97,59 @@ export default function Home() {
 
         <MotivationQuote />
 
+        {/* About Section - First */}
+        <section id="about" className="mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-4xl mx-auto"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-6">
+              About FitMind AI
+            </h2>
+            <div className="glass-card p-8 rounded-2xl mb-8">
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                FitMind AI is your personal fitness companion powered by advanced artificial intelligence. 
+                We combine cutting-edge technology with fitness expertise to create personalized workout 
+                and nutrition plans that adapt to your unique goals, preferences, and lifestyle.
+              </p>
+              <div className="grid md:grid-cols-2 gap-8 text-left">
+                <div>
+                  <h3 className="text-xl font-bold text-gradient mb-3">Our Mission</h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    To make professional fitness coaching accessible to everyone through AI technology, 
+                    helping you achieve your health and fitness goals with personalized guidance.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gradient mb-3">Technology</h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    Built with Next.js, powered by OpenAI and Google Gemini, featuring voice synthesis, 
+                    AI image generation, and modern responsive design.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Navigation to other sections */}
+            <div className="flex flex-wrap gap-4 justify-center">
+              <button 
+                onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+                className="glass-card px-6 py-3 rounded-xl font-medium hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-200 transform hover:scale-105"
+              >
+                🧠 Explore Features
+              </button>
+              <button 
+                onClick={() => document.getElementById('plans')?.scrollIntoView({ behavior: 'smooth' })}
+                className="glass-card px-6 py-3 rounded-xl font-medium hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-200 transform hover:scale-105"
+              >
+                🏋️ Get Your Plan
+              </button>
+            </div>
+          </motion.div>
+        </section>
+
         {/* Features Section */}
         <section id="features" className="mb-16">
           <motion.div
@@ -113,7 +166,7 @@ export default function Home() {
             </p>
           </motion.div>
           
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-8">
             {[
               {
                 title: "AI-Powered Plans",
@@ -144,6 +197,15 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+          
+          <div className="text-center">
+            <button 
+              onClick={() => document.getElementById('plans')?.scrollIntoView({ behavior: 'smooth' })}
+              className="gradient-primary text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+            >
+              Start Your Fitness Journey →
+            </button>
+          </div>
         </section>
 
         {/* Plans Section */}
@@ -159,43 +221,6 @@ export default function Home() {
               isRegenerating={isGenerating}
             />
           )}
-        </section>
-
-        {/* About Section */}
-        <section id="about" className="mt-20 py-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-6">
-              About FitMind AI
-            </h2>
-            <div className="glass-card p-8 rounded-2xl">
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                FitMind AI is your personal fitness companion powered by advanced artificial intelligence. 
-                We combine cutting-edge technology with fitness expertise to create personalized workout 
-                and nutrition plans that adapt to your unique goals, preferences, and lifestyle.
-              </p>
-              <div className="grid md:grid-cols-2 gap-8 text-left">
-                <div>
-                  <h3 className="text-xl font-bold text-gradient mb-3">Our Mission</h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    To make professional fitness coaching accessible to everyone through AI technology, 
-                    helping you achieve your health and fitness goals with personalized guidance.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gradient mb-3">Technology</h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Built with Next.js, powered by OpenAI and Google Gemini, featuring voice synthesis, 
-                    AI image generation, and modern responsive design.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </section>
       </main>
     </div>

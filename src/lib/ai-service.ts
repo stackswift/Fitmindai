@@ -282,34 +282,94 @@ function generateWorkoutDays(userData: UserData) {
 }
 
 function generateDietDays(userData: UserData) {
-  const sampleMeals = {
+  const mealOptions = {
     vegetarian: {
-      breakfast: { name: 'Oatmeal with Fruits', ingredients: ['Oats', 'Banana', 'Berries', 'Nuts'], preparation: 'Cook oats with milk, top with fruits and nuts', calories: 350, protein: 12, carbs: 55, fats: 8, cookingTime: '10 minutes' },
-      lunch: { name: 'Quinoa Buddha Bowl', ingredients: ['Quinoa', 'Chickpeas', 'Vegetables', 'Tahini'], preparation: 'Mix cooked quinoa with roasted vegetables and chickpeas', calories: 450, protein: 18, carbs: 65, fats: 12, cookingTime: '25 minutes' },
-      dinner: { name: 'Lentil Curry with Rice', ingredients: ['Lentils', 'Rice', 'Spices', 'Vegetables'], preparation: 'Cook lentils with spices, serve with brown rice', calories: 400, protein: 16, carbs: 70, fats: 6, cookingTime: '30 minutes' }
+      breakfasts: [
+        { name: 'Oatmeal with Fruits', ingredients: ['Oats', 'Banana', 'Berries', 'Nuts'], preparation: 'Cook oats with milk, top with fruits and nuts', calories: 350, protein: 12, carbs: 55, fats: 8, cookingTime: '10 minutes' },
+        { name: 'Avocado Toast', ingredients: ['Whole grain bread', 'Avocado', 'Tomato', 'Seeds'], preparation: 'Toast bread, mash avocado with seasonings', calories: 320, protein: 8, carbs: 45, fats: 12, cookingTime: '5 minutes' },
+        { name: 'Smoothie Bowl', ingredients: ['Banana', 'Berries', 'Spinach', 'Protein powder'], preparation: 'Blend fruits with protein powder, top with nuts', calories: 380, protein: 25, carbs: 50, fats: 8, cookingTime: '8 minutes' },
+        { name: 'Chia Pudding', ingredients: ['Chia seeds', 'Almond milk', 'Fruits', 'Honey'], preparation: 'Soak chia seeds overnight, top with fruits', calories: 300, protein: 10, carbs: 35, fats: 15, cookingTime: '5 minutes' },
+        { name: 'Greek Yogurt Parfait', ingredients: ['Greek yogurt', 'Granola', 'Berries', 'Honey'], preparation: 'Layer yogurt with granola and berries', calories: 340, protein: 20, carbs: 42, fats: 8, cookingTime: '3 minutes' },
+        { name: 'Veggie Scramble', ingredients: ['Tofu', 'Vegetables', 'Nutritional yeast', 'Herbs'], preparation: 'Scramble tofu with vegetables and seasonings', calories: 280, protein: 18, carbs: 20, fats: 16, cookingTime: '12 minutes' },
+        { name: 'Pancakes', ingredients: ['Oat flour', 'Banana', 'Almond milk', 'Berries'], preparation: 'Make pancakes with oat flour, serve with berries', calories: 360, protein: 12, carbs: 58, fats: 10, cookingTime: '15 minutes' }
+      ],
+      lunches: [
+        { name: 'Quinoa Buddha Bowl', ingredients: ['Quinoa', 'Chickpeas', 'Vegetables', 'Tahini'], preparation: 'Mix cooked quinoa with roasted vegetables and chickpeas', calories: 450, protein: 18, carbs: 65, fats: 12, cookingTime: '25 minutes' },
+        { name: 'Lentil Soup', ingredients: ['Red lentils', 'Vegetables', 'Coconut milk', 'Spices'], preparation: 'Cook lentils with vegetables in coconut broth', calories: 380, protein: 16, carbs: 55, fats: 8, cookingTime: '30 minutes' },
+        { name: 'Chickpea Salad Wrap', ingredients: ['Chickpeas', 'Tortilla', 'Vegetables', 'Hummus'], preparation: 'Mash chickpeas, wrap with veggies in tortilla', calories: 420, protein: 15, carbs: 60, fats: 12, cookingTime: '10 minutes' },
+        { name: 'Vegetable Stir-fry', ingredients: ['Mixed vegetables', 'Tofu', 'Brown rice', 'Soy sauce'], preparation: 'Stir-fry vegetables and tofu, serve over rice', calories: 400, protein: 20, carbs: 55, fats: 10, cookingTime: '20 minutes' },
+        { name: 'Mediterranean Bowl', ingredients: ['Quinoa', 'Olives', 'Tomatoes', 'Feta', 'Cucumber'], preparation: 'Combine quinoa with Mediterranean vegetables', calories: 460, protein: 18, carbs: 58, fats: 16, cookingTime: '15 minutes' },
+        { name: 'Black Bean Tacos', ingredients: ['Black beans', 'Corn tortillas', 'Avocado', 'Salsa'], preparation: 'Fill tortillas with seasoned black beans', calories: 390, protein: 16, carbs: 65, fats: 8, cookingTime: '15 minutes' },
+        { name: 'Veggie Burger', ingredients: ['Plant-based patty', 'Whole grain bun', 'Vegetables'], preparation: 'Grill veggie patty, assemble burger with toppings', calories: 440, protein: 22, carbs: 45, fats: 18, cookingTime: '12 minutes' }
+      ],
+      dinners: [
+        { name: 'Lentil Curry with Rice', ingredients: ['Lentils', 'Rice', 'Spices', 'Vegetables'], preparation: 'Cook lentils with spices, serve with brown rice', calories: 400, protein: 16, carbs: 70, fats: 6, cookingTime: '30 minutes' },
+        { name: 'Stuffed Bell Peppers', ingredients: ['Bell peppers', 'Quinoa', 'Vegetables', 'Cheese'], preparation: 'Stuff peppers with quinoa mixture, bake', calories: 350, protein: 14, carbs: 45, fats: 12, cookingTime: '45 minutes' },
+        { name: 'Vegetable Pasta', ingredients: ['Whole wheat pasta', 'Mixed vegetables', 'Marinara', 'Herbs'], preparation: 'Cook pasta with vegetables in marinara sauce', calories: 420, protein: 15, carbs: 75, fats: 8, cookingTime: '25 minutes' },
+        { name: 'Cauliflower Curry', ingredients: ['Cauliflower', 'Chickpeas', 'Coconut milk', 'Spices'], preparation: 'Cook cauliflower and chickpeas in spiced coconut milk', calories: 380, protein: 18, carbs: 45, fats: 16, cookingTime: '35 minutes' },
+        { name: 'Mushroom Risotto', ingredients: ['Arborio rice', 'Mushrooms', 'Vegetable broth', 'Nutritional yeast'], preparation: 'Slowly cook rice with mushrooms and broth', calories: 450, protein: 12, carbs: 68, fats: 14, cookingTime: '40 minutes' },
+        { name: 'Eggplant Parmesan', ingredients: ['Eggplant', 'Marinara sauce', 'Mozzarella', 'Basil'], preparation: 'Layer breaded eggplant with sauce and cheese', calories: 390, protein: 18, carbs: 35, fats: 20, cookingTime: '50 minutes' },
+        { name: 'Vegetable Chili', ingredients: ['Mixed beans', 'Vegetables', 'Tomatoes', 'Spices'], preparation: 'Simmer beans and vegetables with spices', calories: 360, protein: 20, carbs: 55, fats: 6, cookingTime: '40 minutes' }
+      ]
     },
     'non-vegetarian': {
-      breakfast: { name: 'Scrambled Eggs with Toast', ingredients: ['Eggs', 'Whole grain bread', 'Butter', 'Herbs'], preparation: 'Scramble eggs with herbs, serve with toast', calories: 380, protein: 20, carbs: 30, fats: 18, cookingTime: '8 minutes' },
-      lunch: { name: 'Grilled Chicken Salad', ingredients: ['Chicken breast', 'Mixed greens', 'Olive oil', 'Vegetables'], preparation: 'Grill chicken, serve over mixed green salad', calories: 420, protein: 35, carbs: 15, fats: 22, cookingTime: '20 minutes' },
-      dinner: { name: 'Baked Salmon with Vegetables', ingredients: ['Salmon fillet', 'Broccoli', 'Sweet potato', 'Olive oil'], preparation: 'Bake salmon with seasoned vegetables', calories: 480, protein: 32, carbs: 35, fats: 24, cookingTime: '25 minutes' }
+      breakfasts: [
+        { name: 'Scrambled Eggs with Toast', ingredients: ['Eggs', 'Whole grain bread', 'Butter', 'Herbs'], preparation: 'Scramble eggs with herbs, serve with toast', calories: 380, protein: 20, carbs: 30, fats: 18, cookingTime: '8 minutes' },
+        { name: 'Protein Smoothie', ingredients: ['Protein powder', 'Banana', 'Berries', 'Almond milk'], preparation: 'Blend all ingredients until smooth', calories: 320, protein: 25, carbs: 35, fats: 6, cookingTime: '5 minutes' },
+        { name: 'Chicken Sausage Omelet', ingredients: ['Eggs', 'Chicken sausage', 'Vegetables', 'Cheese'], preparation: 'Make omelet with sausage and vegetables', calories: 420, protein: 28, carbs: 8, fats: 28, cookingTime: '12 minutes' },
+        { name: 'Turkey Bacon & Eggs', ingredients: ['Turkey bacon', 'Eggs', 'Spinach', 'Tomato'], preparation: 'Cook bacon and eggs, serve with vegetables', calories: 350, protein: 24, carbs: 6, fats: 24, cookingTime: '10 minutes' },
+        { name: 'Protein Pancakes', ingredients: ['Protein powder', 'Eggs', 'Banana', 'Berries'], preparation: 'Make protein pancakes, top with berries', calories: 390, protein: 30, carbs: 35, fats: 12, cookingTime: '15 minutes' },
+        { name: 'Salmon & Avocado Toast', ingredients: ['Smoked salmon', 'Avocado', 'Bread', 'Cream cheese'], preparation: 'Toast bread, top with avocado and salmon', calories: 410, protein: 22, carbs: 25, fats: 24, cookingTime: '8 minutes' },
+        { name: 'Greek Yogurt Bowl', ingredients: ['Greek yogurt', 'Granola', 'Protein powder', 'Nuts'], preparation: 'Mix yogurt with protein, top with granola', calories: 360, protein: 28, carbs: 30, fats: 12, cookingTime: '3 minutes' }
+      ],
+      lunches: [
+        { name: 'Grilled Chicken Salad', ingredients: ['Chicken breast', 'Mixed greens', 'Olive oil', 'Vegetables'], preparation: 'Grill chicken, serve over mixed green salad', calories: 420, protein: 35, carbs: 15, fats: 22, cookingTime: '20 minutes' },
+        { name: 'Turkey Wrap', ingredients: ['Turkey slices', 'Tortilla', 'Vegetables', 'Hummus'], preparation: 'Wrap turkey and vegetables in tortilla with hummus', calories: 380, protein: 28, carbs: 35, fats: 14, cookingTime: '8 minutes' },
+        { name: 'Beef Stir-fry', ingredients: ['Lean beef', 'Vegetables', 'Brown rice', 'Soy sauce'], preparation: 'Stir-fry beef with vegetables, serve over rice', calories: 450, protein: 32, carbs: 40, fats: 16, cookingTime: '25 minutes' },
+        { name: 'Chicken Caesar Salad', ingredients: ['Chicken breast', 'Romaine', 'Parmesan', 'Dressing'], preparation: 'Grill chicken, toss with Caesar salad', calories: 390, protein: 34, carbs: 12, fats: 22, cookingTime: '18 minutes' },
+        { name: 'Tuna Quinoa Bowl', ingredients: ['Canned tuna', 'Quinoa', 'Vegetables', 'Olive oil'], preparation: 'Mix tuna with quinoa and fresh vegetables', calories: 410, protein: 30, carbs: 35, fats: 16, cookingTime: '15 minutes' },
+        { name: 'Chicken Soup', ingredients: ['Chicken breast', 'Vegetables', 'Broth', 'Herbs'], preparation: 'Simmer chicken with vegetables in broth', calories: 320, protein: 28, carbs: 25, fats: 10, cookingTime: '35 minutes' },
+        { name: 'Pork Tenderloin Salad', ingredients: ['Pork tenderloin', 'Mixed greens', 'Vegetables', 'Vinaigrette'], preparation: 'Grill pork, slice over fresh salad', calories: 400, protein: 32, carbs: 18, fats: 20, cookingTime: '22 minutes' }
+      ],
+      dinners: [
+        { name: 'Baked Salmon with Vegetables', ingredients: ['Salmon fillet', 'Broccoli', 'Sweet potato', 'Olive oil'], preparation: 'Bake salmon with seasoned vegetables', calories: 480, protein: 32, carbs: 35, fats: 24, cookingTime: '25 minutes' },
+        { name: 'Grilled Chicken with Rice', ingredients: ['Chicken breast', 'Brown rice', 'Asparagus', 'Herbs'], preparation: 'Grill seasoned chicken, serve with rice and vegetables', calories: 450, protein: 38, carbs: 45, fats: 12, cookingTime: '30 minutes' },
+        { name: 'Beef and Vegetable Skewers', ingredients: ['Lean beef', 'Bell peppers', 'Onions', 'Quinoa'], preparation: 'Grill beef and vegetable skewers, serve with quinoa', calories: 420, protein: 30, carbs: 35, fats: 16, cookingTime: '25 minutes' },
+        { name: 'Turkey Meatballs with Pasta', ingredients: ['Ground turkey', 'Whole wheat pasta', 'Marinara', 'Herbs'], preparation: 'Make turkey meatballs, serve with pasta', calories: 460, protein: 34, carbs: 50, fats: 14, cookingTime: '35 minutes' },
+        { name: 'Cod with Sweet Potato', ingredients: ['Cod fillet', 'Sweet potato', 'Green beans', 'Lemon'], preparation: 'Bake cod with roasted sweet potato and beans', calories: 390, protein: 28, carbs: 40, fats: 10, cookingTime: '30 minutes' },
+        { name: 'Chicken Curry', ingredients: ['Chicken thighs', 'Coconut milk', 'Vegetables', 'Rice'], preparation: 'Cook chicken curry, serve over basmati rice', calories: 520, protein: 35, carbs: 45, fats: 22, cookingTime: '40 minutes' },
+        { name: 'Steak with Vegetables', ingredients: ['Lean steak', 'Broccoli', 'Mushrooms', 'Herbs'], preparation: 'Grill steak to preference, serve with sautéed vegetables', calories: 440, protein: 36, carbs: 15, fats: 26, cookingTime: '20 minutes' }
+      ]
     }
   }
 
-  const meals = sampleMeals[userData.dietaryPreference as keyof typeof sampleMeals] || sampleMeals['non-vegetarian']
-  const snacks = [
+  const dietType = userData.dietaryPreference as keyof typeof mealOptions
+  const meals = mealOptions[dietType] || mealOptions['non-vegetarian']
+  
+  const snackOptions = [
     { name: 'Greek Yogurt', ingredients: ['Greek yogurt', 'Honey'], preparation: 'Mix yogurt with honey', calories: 120, protein: 15, carbs: 12, fats: 2, cookingTime: '2 minutes' },
-    { name: 'Mixed Nuts', ingredients: ['Almonds', 'Walnuts'], preparation: 'Ready to eat', calories: 160, protein: 6, carbs: 6, fats: 14, cookingTime: '0 minutes' }
+    { name: 'Mixed Nuts', ingredients: ['Almonds', 'Walnuts'], preparation: 'Ready to eat', calories: 160, protein: 6, carbs: 6, fats: 14, cookingTime: '0 minutes' },
+    { name: 'Apple with Peanut Butter', ingredients: ['Apple', 'Peanut butter'], preparation: 'Slice apple, serve with peanut butter', calories: 180, protein: 8, carbs: 20, fats: 8, cookingTime: '3 minutes' },
+    { name: 'Protein Bar', ingredients: ['Protein bar'], preparation: 'Ready to eat', calories: 200, protein: 20, carbs: 15, fats: 8, cookingTime: '0 minutes' }
   ]
 
-  return Array.from({ length: 7 }, (_, i) => ({
-    day: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][i],
-    breakfast: meals.breakfast,
-    lunch: meals.lunch,
-    dinner: meals.dinner,
-    snacks: snacks,
-    totalCalories: meals.breakfast.calories + meals.lunch.calories + meals.dinner.calories + snacks.reduce((sum, snack) => sum + snack.calories, 0),
-    waterIntake: '2-3 liters'
-  }))
+  return Array.from({ length: 7 }, (_, i) => {
+    const day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][i]
+    const breakfast = meals.breakfasts[i % meals.breakfasts.length]
+    const lunch = meals.lunches[i % meals.lunches.length]
+    const dinner = meals.dinners[i % meals.dinners.length]
+    const daySnacks = [snackOptions[i % snackOptions.length], snackOptions[(i + 1) % snackOptions.length]]
+    
+    return {
+      day,
+      breakfast,
+      lunch,
+      dinner,
+      snacks: daySnacks,
+      totalCalories: breakfast.calories + lunch.calories + dinner.calories + daySnacks.reduce((sum, snack) => sum + snack.calories, 0),
+      waterIntake: '2-3 liters'
+    }
+  })
 }
 
 function generateDietGuidelines(userData: UserData): string[] {
