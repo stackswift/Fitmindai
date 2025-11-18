@@ -57,23 +57,42 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-indigo-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-100 dark:from-gray-950 dark:via-purple-950 dark:to-indigo-950">
+      {/* Background Elements */}
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-400/20 via-transparent to-transparent pointer-events-none" />
+      <div className="fixed inset-0 bg-grid-pattern opacity-5 pointer-events-none" />
+      
       <Header />
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 relative">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+          <motion.h1 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-black text-gradient mb-6 leading-tight"
+          >
             FitMind AI
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Your AI-powered personal fitness coach. Get customized workout and diet plans
-            tailored specifically for your goals and preferences.
-          </p>
+          </motion.h1>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="max-w-3xl mx-auto"
+          >
+            <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-200 mb-4 font-medium">
+              Your AI-powered personal fitness coach
+            </p>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Get customized workout and diet plans tailored specifically for your goals, 
+              fitness level, and lifestyle preferences.
+            </p>
+          </motion.div>
         </motion.div>
 
         <MotivationQuote />

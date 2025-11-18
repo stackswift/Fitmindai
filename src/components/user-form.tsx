@@ -132,16 +132,21 @@ export default function UserForm({ onSubmit, isLoading }: UserFormProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <Card className="max-w-4xl mx-auto">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl flex items-center justify-center gap-2">
-            <Heart className="h-6 w-6 text-red-500" />
-            Tell Us About Yourself
+      <Card className="max-w-5xl mx-auto glass-card shadow-strong border-0">
+        <CardHeader className="text-center pb-8">
+          <CardTitle className="text-3xl font-bold flex items-center justify-center gap-3">
+            <div className="p-2 rounded-xl gradient-secondary">
+              <Heart className="h-6 w-6 text-white" />
+            </div>
+            <span className="text-gradient">Tell Us About Yourself</span>
           </CardTitle>
+          <p className="text-gray-600 dark:text-gray-300 mt-2">
+            Help us create the perfect fitness plan tailored just for you
+          </p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-8">
@@ -208,22 +213,22 @@ export default function UserForm({ onSubmit, isLoading }: UserFormProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-center pt-6"
+              className="text-center pt-8"
             >
               <Button
                 type="submit"
                 size="lg"
                 disabled={isLoading || !formData.name.trim()}
-                className="min-w-[200px]"
+                className="min-w-[250px] h-14 text-lg font-semibold gradient-primary hover:shadow-lg transform hover:scale-105 transition-all duration-200 border-0"
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <Loader2 className="mr-3 h-5 w-5 animate-spin" />
                     Generating Your Plan...
                   </>
                 ) : (
                   <>
-                    <Activity className="mr-2 h-4 w-4" />
+                    <Activity className="mr-3 h-5 w-5" />
                     Generate My Fitness Plan
                   </>
                 )}

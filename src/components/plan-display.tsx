@@ -179,23 +179,33 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="max-w-6xl mx-auto space-y-6"
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="max-w-7xl mx-auto space-y-8"
     >
       {/* Header */}
-      <Card>
-        <CardHeader>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <CardTitle className="text-2xl flex items-center gap-2">
-                <TrendingUp className="h-6 w-6 text-green-500" />
-                Your Personalized Fitness Plan
+      <Card className="glass-card shadow-strong border-0">
+        <CardHeader className="pb-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="space-y-4">
+              <CardTitle className="text-3xl font-bold flex items-center gap-3">
+                <div className="p-2 rounded-xl gradient-primary">
+                  <TrendingUp className="h-6 w-6 text-white" />
+                </div>
+                <span className="text-gradient">Your Personalized Fitness Plan</span>
               </CardTitle>
-              <p className="text-muted-foreground mt-2">
-                Created for {userData.name} • {userData.fitnessGoal} • {userData.fitnessLevel}
-              </p>
+              <div className="flex flex-wrap gap-4 text-sm">
+                <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full font-medium">
+                  {userData.name}
+                </span>
+                <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full font-medium">
+                  {userData.fitnessGoal.replace('-', ' ')}
+                </span>
+                <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full font-medium">
+                  {userData.fitnessLevel}
+                </span>
+              </div>
               {/* Progress Bar */}
               <div className="mt-3 space-y-2">
                 <div className="flex items-center justify-between text-sm">
@@ -210,14 +220,22 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              <Button variant="outline" onClick={onBackToForm}>
+            <div className="flex flex-wrap gap-3">
+              <Button 
+                variant="outline" 
+                onClick={onBackToForm}
+                className="glass-card hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
                 <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
                 New Plan
               </Button>
-              <Button variant="outline" onClick={handleExportPDF}>
+              <Button 
+                variant="outline" 
+                onClick={handleExportPDF}
+                className="glass-card hover:bg-green-50 dark:hover:bg-green-900/20"
+              >
                 <Download className="mr-2 h-4 w-4" />
                 Export PDF
               </Button>
@@ -225,6 +243,7 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
                 variant="outline"
                 onClick={onRegenerate}
                 disabled={isRegenerating}
+                className="glass-card hover:bg-blue-50 dark:hover:bg-blue-900/20"
               >
                 {isRegenerating ? (
                   <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
@@ -237,15 +256,19 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
           </div>
         </CardHeader>
       </Card>      {/* Tab Navigation */}
-      <div className="flex flex-wrap gap-2 justify-center">
+      <div className="flex flex-wrap gap-3 justify-center p-2 glass-card rounded-2xl max-w-fit mx-auto">
         {tabs.map((tab) => (
           <Button
             key={tab.key}
-            variant={activeTab === tab.key ? 'default' : 'outline'}
+            variant={activeTab === tab.key ? 'default' : 'ghost'}
             onClick={() => setActiveTab(tab.key as 'workout' | 'diet' | 'tips')}
-            className="flex items-center gap-2"
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+              activeTab === tab.key 
+                ? 'gradient-primary text-white shadow-lg' 
+                : 'hover:bg-purple-50 dark:hover:bg-purple-900/20'
+            }`}
           >
-            <tab.icon className="h-4 w-4" />
+            <tab.icon className="h-5 w-5" />
             {tab.label}
           </Button>
         ))}
@@ -259,13 +282,15 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
         transition={{ duration: 0.3 }}
       >
         {activeTab === 'workout' && (
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
+          <div className="space-y-8">
+            <Card className="glass-card shadow-strong border-0">
+              <CardHeader className="pb-6">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="flex items-center gap-2">
-                    <Dumbbell className="h-5 w-5" />
-                    {plan.workoutPlan.title}
+                  <CardTitle className="text-2xl font-bold flex items-center gap-3">
+                    <div className="p-2 rounded-xl gradient-primary">
+                      <Dumbbell className="h-5 w-5 text-white" />
+                    </div>
+                    <span className="text-gradient">{plan.workoutPlan.title}</span>
                   </CardTitle>
                   <Button
                     variant="outline"
@@ -277,17 +302,18 @@ export default function PlanDisplay({ plan, userData, onRegenerate, onBackToForm
                         ).join(', ')}`
                       ).join('. ')}`
                     )}
+                    className="glass-card hover:bg-purple-50 dark:hover:bg-purple-900/20"
                   >
                     {isPlaying ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
                   </Button>
                 </div>
-                <p className="text-muted-foreground">{plan.workoutPlan.description}</p>
-                <div className="flex gap-4 text-sm text-muted-foreground">
-                  <span className="flex items-center gap-1">
+                <p className="text-gray-600 dark:text-gray-300 text-lg">{plan.workoutPlan.description}</p>
+                <div className="flex gap-6 text-sm">
+                  <span className="flex items-center gap-2 px-3 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">
                     <Calendar className="h-4 w-4" />
                     {plan.workoutPlan.duration}
                   </span>
-                  <span className="flex items-center gap-1">
+                  <span className="flex items-center gap-2 px-3 py-2 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg">
                     <Clock className="h-4 w-4" />
                     {plan.workoutPlan.frequency}
                   </span>
